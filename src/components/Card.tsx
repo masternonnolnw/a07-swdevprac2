@@ -9,16 +9,19 @@ interface CardProps {
   hospitalRating: number;
 
   onRatingChange: (hospital: string, rating: number) => void;
+
+  hid: string;
 }
 
 const Card = ({
   hospitalName,
   imgSrc,
   hospitalRating,
+  hid,
   onRatingChange
 }: CardProps) => {
   return (
-    <InteractiveCard>
+    <InteractiveCard hid={hid}>
       <img src={imgSrc} alt="Vaccine Information" className={styles.image} />
       <div className={styles.textContainer}>
         <h2>{hospitalName}</h2>

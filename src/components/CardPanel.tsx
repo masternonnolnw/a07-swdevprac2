@@ -28,7 +28,19 @@ function ratingReducer(
   }
 }
 
+export const MOCK_HOSPITALS = [
+  { hid: "001", name: "Chulalongkorn Hospital", imgSrc: "/chula.jpg" },
+  { hid: "002", name: "Rajavithi Hospital", imgSrc: "/rajavithi.jpg" },
+  {
+    hid: "003",
+    name: "Thammasat University Hospital",
+    imgSrc: "/thammasat.jpg"
+  }
+];
+
 const CardPanel = () => {
+  const hospitals = MOCK_HOSPITALS;
+
   const [ratings, dispatch] = useReducer(ratingReducer, initialState);
 
   const handleRatingChange = (hospital: string, rating: number) => {
@@ -39,24 +51,16 @@ const CardPanel = () => {
 
   return (
     <div className="grid grid-cols-3 gap-4 max-w-[1500px] mx-auto">
-      <Card
-        hospitalName="Chulalongkorn Hospital"
-        imgSrc="/chula.jpg"
-        hospitalRating={ratings.get("Chulalongkorn Hospital") ?? 0}
-        onRatingChange={handleRatingChange}
-      />
-      <Card
-        hospitalName="Rajavithi Hospital"
-        imgSrc="/rajavithi.jpg"
-        hospitalRating={ratings.get("Rajavithi Hospital") ?? 0}
-        onRatingChange={handleRatingChange}
-      />
-      <Card
-        hospitalName="Thammasat University Hospital"
-        imgSrc="/thammasat.jpg"
-        hospitalRating={ratings.get("Thammasat University Hospital") ?? 0}
-        onRatingChange={handleRatingChange}
-      />
+      {hospitals.map((hospital) => (
+        <Card
+          key={hospital.hid}
+          hospitalName={hospital.name}
+          imgSrc={hospital.imgSrc}
+          hospitalRating={ratings.get(hospital.name) ?? 0}
+          onRatingChange={handleRatingChange}
+          hid={hospital.hid}
+        />
+      ))}
 
       {/* display hospital name with rating */}
       <div className="col-span-3 text-black">
